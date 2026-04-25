@@ -1,0 +1,13 @@
+const express = require('express');
+const multer = require('multer');
+const { protect } = require('../middleware/auth');
+const fc = require('../controllers/featureControllers');
+const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 100 * 1024 * 1024 } });
+router.use(protect);
+router.get('/', fc.getReelsFeed);
+router.post('/', upload.single('video'), fc.uploadReel);
+router.post('/:reelId/like', fc.likeReel);
+router.post('/:reelId/comments', fc.addComment);
+router.patch('/:reelId/views', fc.incrementViews);
+module.exports = router;
