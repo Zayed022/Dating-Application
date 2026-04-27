@@ -41,7 +41,7 @@ export default function RegisterScreen() {
         setTokens(data.tokens);
         setUser(data.user);
       
-        //await socketService.connect();
+        await socketService.connect();
         router.replace('/(auth)/complete-profile');
       },
       onError: (error: any) => {
